@@ -4,7 +4,7 @@
 
 ### News
 
-+ Fork of [https://github.com/wbotelhos/raty](jQuery Raty)
++ Fork of [jQuery Raty](https://github.com/wbotelhos/raty)
 
 ### Changes
 
