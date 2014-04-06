@@ -50,49 +50,6 @@ describe('Raty', function() {
   beforeEach(function() { build(); });
   afterEach(function()  { clear(); });
 
-  it ('has the right values', function() {
-    // given
-    var raty = $.fn.raty
-
-    // when
-    var opt = raty.defaults
-
-    // then
-    expect(opt.cancel).toBeFalsy();
-    expect(opt.cancelHint).toEqual('Cancel this rating!');
-    expect(opt.cancelOff).toEqual('cancel-off.png');
-    expect(opt.cancelOn).toEqual('cancel-on.png');
-    expect(opt.cancelPlace).toEqual('left');
-    expect(opt.click).toBeUndefined();
-    expect(opt.half).toBeFalsy();
-    expect(opt.halfShow).toBeTruthy();
-    expect(opt.hints).toContain('bad', 'poor', 'regular', 'good', 'gorgeous');
-    expect(opt.iconRange).toBeUndefined();
-    expect(opt.mouseover).toBeUndefined();
-    expect(opt.noRatedMsg).toEqual('Not rated yet!');
-    expect(opt.number).toBe(5);
-    expect(opt.path).toEqual('');
-    expect(opt.precision).toBeFalsy();
-    expect(opt.readOnly).toBeFalsy();
-    expect(opt.round.down).toEqual(.25);
-    expect(opt.round.full).toEqual(.6);
-    expect(opt.round.up).toEqual(.76);
-    expect(opt.score).toBeUndefined();
-    expect(opt.scoreName).toEqual('score');
-    expect(opt.single).toBeFalsy();
-    expect(opt.size).toBe(16);
-    expect(opt.space).toBeTruthy();
-    expect(opt.starHalf).toEqual('star-half.png');
-    expect(opt.starOff).toEqual('star-off.png');
-    expect(opt.starOn).toEqual('star-on.png');
-    expect(opt.target).toBeUndefined();
-    expect(opt.targetFormat).toEqual('{score}');
-    expect(opt.targetKeep).toBeFalsy();
-    expect(opt.targetText).toEqual('');
-    expect(opt.targetType).toEqual('hint');
-    expect(opt.width).toBeUndefined();
-  });
-
   describe('common features', function() {
     it ('is chainable', function() {
       // given
@@ -113,7 +70,7 @@ describe('Raty', function() {
       self.raty();
 
       // then
-      var imgs  = self.children('img'),
+      var imgs  = self.children('i'),
           score = self.children('input');
 
       expect(imgs.eq(0)).toHaveAttr('title', 'bad');
@@ -121,7 +78,7 @@ describe('Raty', function() {
       expect(imgs.eq(2)).toHaveAttr('title', 'regular');
       expect(imgs.eq(3)).toHaveAttr('title', 'good');
       expect(imgs.eq(4)).toHaveAttr('title', 'gorgeous');
-      expect(imgs).toHaveAttr('src', 'star-off.png');
+      expect(imgs).toHaveClass('fa fa-star-o');
       expect(score).toHaveAttr('type', 'hidden');
       expect(score).toHaveAttr('name', 'score');
       expect(score.val()).toEqual('');
@@ -137,33 +94,33 @@ describe('Raty', function() {
       self.raty();
 
       // then
-      expect(self.children('img')).toHaveAttr('src', 'star-off.png');
+      expect(self.children('i')).toHaveClass('fa fa-star-o');
     });
 
     context('on :mouseover', function() {
       it ('turns on the stars', function() {
         // given
         var self = $('#element').raty(),
-            imgs = self.children('img');
+            imgs = self.children('i');
 
         // when
         imgs.eq(4).mouseover();
 
         // then
-        expect(imgs).toHaveAttr('src', 'star-on.png');
+        expect(imgs).toHaveClass('fa fa-star');
       });
 
       context('and :mouseout', function() {
         it ('clears all stars', function() {
           // given
           var self = $('#element').raty(),
-              imgs = self.children('img');
+              imgs = self.children('i');
 
           // when
           imgs.eq(4).mouseover().mouseout();
 
           // then
-          expect(imgs).toHaveAttr('src', 'star-off.png');
+          expect(imgs).toHaveClass('fa fa-star-o');
         });
       });
     });
@@ -172,7 +129,7 @@ describe('Raty', function() {
       it ('changes the score', function() {
         // given
         var self = $('#element').raty(),
-            imgs = self.children('img');
+            imgs = self.children('i');
 
         // when
         imgs.eq(1).mouseover().click();
@@ -185,13 +142,13 @@ describe('Raty', function() {
         it ('keeps the stars on', function() {
           // given
           var self = $('#element').raty(),
-              imgs = self.children('img');
+              imgs = self.children('i');
 
           // when
           imgs.eq(4).mouseover().click().mouseout();
 
           // then
-          expect(imgs).toHaveAttr('src', 'star-on.png');
+          expect(imgs).toHaveClass('fa fa-star');
         });
       });
     });
@@ -207,7 +164,7 @@ describe('Raty', function() {
         var score = self.raty('score');
 
         // then
-        expect(self.children('img').length).toEqual(20);
+        expect(self.children('i').length).toEqual(20);
         expect(self.children('input')).toHaveValue(20);
       });
 
@@ -220,7 +177,7 @@ describe('Raty', function() {
           var score = self.raty('score');
 
           // then
-          expect(self.children('img').length).toEqual(10);
+          expect(self.children('i').length).toEqual(10);
           expect(self.children('input')).toHaveValue(10);
         });
       });
@@ -232,28 +189,28 @@ describe('Raty', function() {
         var self = $('#element');
 
         // when
-        self.raty({ starOff: 'icon.png' });
+        self.raty({ starOff: 'fa-beer' });
 
         // then
-        expect(self.children('img')).toHaveAttr('src', 'icon.png');
+        expect(self.children('i')).toHaveClass('fa-beer');
       });
     });
 
     describe('#starOn', function() {
       it ('changes the icons', function() {
         // given
-        var self = $('#element').raty({ starOn: 'icon.png' }),
-            imgs = self.children('img');
+        var self = $('#element').raty({ starOn: 'fa-beer' }),
+            imgs = self.children('i');
 
         // when
         imgs.eq(3).mouseover();
 
         // then
-        expect(imgs.eq(0)).toHaveAttr('src', 'icon.png');
-        expect(imgs.eq(1)).toHaveAttr('src', 'icon.png');
-        expect(imgs.eq(2)).toHaveAttr('src', 'icon.png');
-        expect(imgs.eq(3)).toHaveAttr('src', 'icon.png');
-        expect(imgs.eq(4)).toHaveAttr('src', 'star-off.png');
+        expect(imgs.eq(0)).toHaveClass('fa-beer');
+        expect(imgs.eq(1)).toHaveClass('fa-beer');
+        expect(imgs.eq(2)).toHaveClass('fa-beer');
+        expect(imgs.eq(3)).toHaveClass('fa-beer');
+        expect(imgs.eq(4)).toHaveClass('fa fa-star-o');
       });
     });
 
@@ -273,13 +230,13 @@ describe('Raty', function() {
         });
 
         // then
-        var imgs = self.children('img');
+        var imgs = self.children('i');
 
-        expect(imgs.eq(0)).toHaveAttr('src', 'a-off.png');
-        expect(imgs.eq(1)).toHaveAttr('src', 'a-off.png');
-        expect(imgs.eq(2)).toHaveAttr('src', 'b-off.png');
-        expect(imgs.eq(3)).toHaveAttr('src', 'c-off.png');
-        expect(imgs.eq(4)).toHaveAttr('src', 'd-off.png');
+        expect(imgs.eq(0)).toHaveClass('a-off.png');
+        expect(imgs.eq(1)).toHaveClass('a-off.png');
+        expect(imgs.eq(2)).toHaveClass('b-off.png');
+        expect(imgs.eq(3)).toHaveClass('c-off.png');
+        expect(imgs.eq(4)).toHaveClass('d-off.png');
       });
 
       context('when off icon is not especified', function() {
@@ -298,7 +255,7 @@ describe('Raty', function() {
           });
 
           // then
-          expect(self.children('img').eq(4)).toHaveAttr('src', 'star-off.png');
+          expect(self.children('i').eq(4)).toHaveClass('fa fa-star-o');
         });
       });
 
@@ -313,17 +270,17 @@ describe('Raty', function() {
                 { range: 5, on: 'd.png', off: 'd-off.png' }
               ]
             }),
-            imgs = self.children('img');
+            imgs = self.children('i');
 
           // when
           imgs.eq(4).mouseover();
 
           // then
-          expect(imgs.eq(0)).toHaveAttr('src', 'a.png');
-          expect(imgs.eq(1)).toHaveAttr('src', 'a.png');
-          expect(imgs.eq(2)).toHaveAttr('src', 'b.png');
-          expect(imgs.eq(3)).toHaveAttr('src', 'c.png');
-          expect(imgs.eq(4)).toHaveAttr('src', 'd.png');
+          expect(imgs.eq(0)).toHaveClass('a.png');
+          expect(imgs.eq(1)).toHaveClass('a.png');
+          expect(imgs.eq(2)).toHaveClass('b.png');
+          expect(imgs.eq(3)).toHaveClass('c.png');
+          expect(imgs.eq(4)).toHaveClass('d.png');
         });
 
         context('when on icon is not especified', function() {
@@ -337,17 +294,17 @@ describe('Raty', function() {
                     { range: 5, off: 'off.png' }
                   ]
                 }),
-                imgs = self.children('img');
+                imgs = self.children('i');
 
             // when
             imgs.eq(4).mouseover();
 
             // then
-            expect(imgs.eq(0)).toHaveAttr('src', 'on.png');
-            expect(imgs.eq(1)).toHaveAttr('src', 'on.png');
-            expect(imgs.eq(2)).toHaveAttr('src', 'on.png');
-            expect(imgs.eq(3)).toHaveAttr('src', 'on.png');
-            expect(imgs.eq(4)).toHaveAttr('src', 'star-on.png');
+            expect(imgs.eq(0)).toHaveClass('on.png');
+            expect(imgs.eq(1)).toHaveClass('on.png');
+            expect(imgs.eq(2)).toHaveClass('on.png');
+            expect(imgs.eq(3)).toHaveClass('on.png');
+            expect(imgs.eq(4)).toHaveClass('fa fa-star');
           });
         });
       });
@@ -363,7 +320,7 @@ describe('Raty', function() {
                   { range: 5, on: 'd.png', off: 'd-off.png' },
                 ]
               }),
-              imgs = self.children('img');
+              imgs = self.children('i');
 
           // when
           imgs.eq(4).mouseover();
@@ -371,11 +328,11 @@ describe('Raty', function() {
           self.mouseleave();
 
           // then
-          expect(imgs.eq(0)).toHaveAttr('src', 'a-off.png');
-          expect(imgs.eq(1)).toHaveAttr('src', 'a-off.png');
-          expect(imgs.eq(2)).toHaveAttr('src', 'b-off.png');
-          expect(imgs.eq(3)).toHaveAttr('src', 'c-off.png');
-          expect(imgs.eq(4)).toHaveAttr('src', 'd-off.png');
+          expect(imgs.eq(0)).toHaveClass('a-off.png');
+          expect(imgs.eq(1)).toHaveClass('a-off.png');
+          expect(imgs.eq(2)).toHaveClass('b-off.png');
+          expect(imgs.eq(3)).toHaveClass('c-off.png');
+          expect(imgs.eq(4)).toHaveClass('d-off.png');
         });
 
         it ('keeps the score value', function() {
@@ -391,7 +348,7 @@ describe('Raty', function() {
               });
 
           // when
-          self.children('img').eq(4).mouseover();
+          self.children('i').eq(4).mouseover();
 
           self.mouseleave();
 
@@ -410,7 +367,7 @@ describe('Raty', function() {
                   { range: 5, on: 'on.png' }
                 ]
               }),
-              img = self.children('img').eq(4);
+              img = self.children('i').eq(4);
 
             // when
             img.mouseover();
@@ -418,7 +375,7 @@ describe('Raty', function() {
             self.mouseleave();
 
             // then
-            expect(img).toHaveAttr('src', 'star-off.png');
+            expect(img).toHaveClass('fa fa-star-o');
           });
         });
       });
@@ -434,7 +391,7 @@ describe('Raty', function() {
           });
 
         // when
-        self.children('img:first').mouseover().click();
+        self.children('i:first').mouseover().click();
 
         // then
         expect(self.data('self')).toBe(self);
@@ -449,7 +406,7 @@ describe('Raty', function() {
             });
 
         // when
-        self.children('img:first').mouseover().click();
+        self.children('i:first').mouseover().click();
 
         // then
         expect(self.data('clicked')).toBeTruthy();
@@ -464,7 +421,7 @@ describe('Raty', function() {
             });
 
         // when
-        self.children('img:first').mouseover().click();
+        self.children('i:first').mouseover().click();
 
         // then
         expect(self.data('score')).toEqual(1);
@@ -481,7 +438,7 @@ describe('Raty', function() {
              });
 
           // when
-          self.children('.raty-cancel').mouseover().click().mouseleave();
+          self.children('i:first').mouseover().click().mouseleave();
 
           // then
           expect(self.data('score')).toBeNull();
@@ -509,13 +466,13 @@ describe('Raty', function() {
         self.raty({ score: 1 });
 
         // then
-        var imgs = self.children('img');
+        var imgs = self.children('i');
 
-        expect(imgs.eq(0)).toHaveAttr('src', 'star-on.png');
-        expect(imgs.eq(1)).toHaveAttr('src', 'star-off.png');
-        expect(imgs.eq(2)).toHaveAttr('src', 'star-off.png');
-        expect(imgs.eq(3)).toHaveAttr('src', 'star-off.png');
-        expect(imgs.eq(4)).toHaveAttr('src', 'star-off.png');
+        expect(imgs.eq(0)).toHaveClass('fa fa-star');
+        expect(imgs.eq(1)).toHaveClass('fa fa-star-o');
+        expect(imgs.eq(2)).toHaveClass('fa fa-star-o');
+        expect(imgs.eq(3)).toHaveClass('fa fa-star-o');
+        expect(imgs.eq(4)).toHaveClass('fa fa-star-o');
       });
 
       it ('accepts callback', function() {
@@ -589,7 +546,7 @@ describe('Raty', function() {
         self.raty({ readOnly: true });
 
         // then
-        expect(self.children('img')).toHaveAttr('title', 'Not rated yet!');
+        expect(self.children('i')).toHaveAttr('title', 'Not rated yet!');
       });
 
       it ('removes the pointer cursor', function() {
@@ -618,25 +575,25 @@ describe('Raty', function() {
       it ('avoids trigger mouseover', function() {
         // given
         var self = $('#element').raty({ readOnly: true }),
-            imgs = self.children('img');
+            imgs = self.children('i');
 
         // when
         imgs.eq(1).mouseover();
 
         // then
-        expect(imgs).toHaveAttr('src', 'star-off.png');
+        expect(imgs).toHaveClass('fa fa-star-o');
       });
 
       it ('avoids trigger click', function() {
         // given
         var self = $('#element').raty({ readOnly: true }),
-            imgs = self.children('img');
+            imgs = self.children('i');
 
         // when
         imgs.eq(1).mouseover().click().mouseleave();
 
         // then
-        expect(imgs).toHaveAttr('src', 'star-off.png');
+        expect(imgs).toHaveClass('fa fa-star-o');
         expect(self.children('input').val()).toEqual('');
       });
 
@@ -648,7 +605,7 @@ describe('Raty', function() {
                 $(this).data('mouseleave', true);
               }
             }),
-            imgs = self.children('img');
+            imgs = self.children('i');
 
         imgs.eq(1).mouseover();
 
@@ -669,7 +626,7 @@ describe('Raty', function() {
             self.raty({ readOnly: true, score: 3 });
 
             // then
-            expect(self.children('img')).toHaveAttr('title', 'regular');
+            expect(self.children('i')).toHaveAttr('title', 'regular');
           });
         });
 
@@ -682,7 +639,7 @@ describe('Raty', function() {
             self.raty({ readOnly: true, score: 3.1 });
 
             // then
-            expect(self.children('img')).toHaveAttr('title', 'regular');
+            expect(self.children('i')).toHaveAttr('title', 'regular');
           });
         });
       });
@@ -696,7 +653,7 @@ describe('Raty', function() {
           self.raty({ cancel: true, readOnly: true, path: '../lib/img' });
 
           // then
-          expect(self.children('.raty-cancel')).toBeHidden();
+          expect(self.children('i:first')).toBeHidden();
         });
       });
     });
@@ -710,7 +667,7 @@ describe('Raty', function() {
         self.raty({ hints: ['1', '/', 'c', '-', '#'] });
 
         // then
-        var imgs = self.children('img');
+        var imgs = self.children('i');
 
         expect(imgs.eq(0)).toHaveAttr('title', 1);
         expect(imgs.eq(1)).toHaveAttr('title', '/');
@@ -727,7 +684,7 @@ describe('Raty', function() {
         self.raty({ hints: [undefined, 'a', 'b', 'c', 'd'] });
 
         // then
-        var imgs = self.children('img');
+        var imgs = self.children('i');
 
         expect(imgs.eq(0)).toHaveAttr('title', 'bad');
         expect(imgs.eq(1)).toHaveAttr('title', 'a');
@@ -744,7 +701,7 @@ describe('Raty', function() {
         self.raty({ hints: ['', 'a', 'b', 'c', 'd'] });
 
         // then
-        var imgs = self.children('img');
+        var imgs = self.children('i');
 
         expect(imgs.eq(0)).toHaveAttr('title', '');
         expect(imgs.eq(1)).toHaveAttr('title', 'a');
@@ -761,7 +718,7 @@ describe('Raty', function() {
         self.raty({ hints: [null, 'a', 'b', 'c', 'd'] });
 
         // then
-        var imgs = self.children('img');
+        var imgs = self.children('i');
 
         expect(imgs.eq(0)).toHaveAttr('title', 1);
         expect(imgs.eq(1)).toHaveAttr('title', 'a');
@@ -779,7 +736,7 @@ describe('Raty', function() {
           self.raty({ hints: ['1', '2', '3', '4'] });
 
           // then
-          var imgs = self.children('img');
+          var imgs = self.children('i');
 
           expect(imgs.eq(0)).toHaveAttr('title', 1);
           expect(imgs.eq(1)).toHaveAttr('title', 2);
@@ -798,7 +755,7 @@ describe('Raty', function() {
           self.raty({ number: 6, hints: ['a', 'b', 'c', 'd', 'e'] });
 
           // then
-          var imgs = self.children('img');
+          var imgs = self.children('i');
 
           expect(imgs.eq(0)).toHaveAttr('title', 'a');
           expect(imgs.eq(1)).toHaveAttr('title', 'b');
@@ -820,7 +777,7 @@ describe('Raty', function() {
           });
 
         // when
-        self.children('img:first').mouseover();
+        self.children('i:first').mouseover();
 
         // then
         expect(self.data('score')).toEqual(1);
@@ -835,7 +792,7 @@ describe('Raty', function() {
           });
 
         // when
-        self.children('img:first').mouseover();
+        self.children('i:first').mouseover();
 
         // then
         expect(self.data('evt').type).toEqual('mouseover');
@@ -852,7 +809,7 @@ describe('Raty', function() {
               });
 
           // when
-          self.children('.raty-cancel').mouseover();
+          self.children('i:first').mouseover();
 
           // then
           expect(self.data('null')).toBeNull();
@@ -870,7 +827,7 @@ describe('Raty', function() {
           });
 
         // when
-        self.children('img:first').mouseover().click().mouseout();
+        self.children('i:first').mouseover().click().mouseout();
 
         // then
         expect(self.data('score')).toEqual(1);
@@ -885,7 +842,7 @@ describe('Raty', function() {
           });
 
         // when
-        self.children('img:first').mouseover().click().mouseout();
+        self.children('i:first').mouseover().click().mouseout();
 
         // then
         expect(self.data('evt').type).toEqual('mouseout');
@@ -902,7 +859,7 @@ describe('Raty', function() {
               });
 
           // when
-          self.children('img:first').mouseenter().mouseleave();
+          self.children('i:first').mouseenter().mouseleave();
 
           // then
           expect(self.data('undefined')).toBeTruthy();
@@ -920,7 +877,7 @@ describe('Raty', function() {
               });
 
           // when
-          self.children('img:first').mouseenter().mouseleave();
+          self.children('i:first').mouseenter().mouseleave();
 
           // then
           expect(self.data('score')).toEqual(1);
@@ -938,7 +895,7 @@ describe('Raty', function() {
             });
 
           // when
-          self.children('.raty-cancel').mouseover().click().mouseout();
+          self.children('i:first').mouseover().click().mouseout();
 
           // then
           expect(self.data('evt').type).toEqual('mouseout');
@@ -955,7 +912,7 @@ describe('Raty', function() {
                 });
 
             // when
-            self.children('.raty-cancel').mouseenter().mouseleave();
+            self.children('i:first').mouseenter().mouseleave();
 
             // then
             expect(self.data('undefined')).toBeTruthy();
@@ -974,7 +931,7 @@ describe('Raty', function() {
                 });
 
             // when
-            self.children('.raty-cancel').mouseenter().mouseleave();
+            self.children('i:first').mouseenter().mouseleave();
 
             // then
             expect(self.data('score')).toEqual(1);
@@ -992,7 +949,7 @@ describe('Raty', function() {
         self.raty({ number: 1 });
 
         // then
-        expect(self.children('img').length).toEqual(1);
+        expect(self.children('i').length).toEqual(1);
       });
 
       it ('accepts number as string', function() {
@@ -1003,7 +960,7 @@ describe('Raty', function() {
         self.raty({ number: '10' });
 
         // then
-        expect(self.children('img').length).toEqual(10);
+        expect(self.children('i').length).toEqual(10);
       });
 
       it ('accepts callback', function() {
@@ -1014,88 +971,7 @@ describe('Raty', function() {
         self.raty({ number: function() { return 1; } });
 
         // then
-        expect(self.children('img').length).toEqual(1);
-      });
-    });
-
-    describe('#path', function() {
-      context('without last slash', function() {
-        it ('receives the slash', function() {
-          // given
-          var self = $('#element');
-
-          // when
-          self.raty({ path: 'path' });
-
-          // then
-          expect(self[0].opt.path).toEqual('path/');
-        });
-      });
-
-      context('with last slash', function() {
-        it ('keeps it', function() {
-          // given
-          var self = $('#element');
-
-          // when
-          self.raty({ path: 'path/' });
-
-          // then
-          expect(self[0].opt.path).toEqual('path/');
-        });
-      });
-
-      it ('changes the path', function() {
-        // given
-        var self = $('#element');
-
-        // when
-        self.raty({ path: 'path' });
-
-        // then
-        expect(self.children('img')).toHaveAttr('src', 'path/star-off.png');
-      });
-
-      context('without path', function() {
-        it ('sets receives empty', function() {
-          // given
-          var self = $('#element');
-
-          // when
-          self.raty({ path: null });
-
-          // then
-          expect(self.children('img')).toHaveAttr('src', 'star-off.png');
-        });
-      });
-
-      context('with :cancel', function() {
-        it ('changes the path', function() {
-          // given
-          var self = $('#element');
-
-          // when
-          self.raty({ cancel: true, path: 'path' })
-
-          // then
-          expect(self.children('.raty-cancel')).toHaveAttr('src', 'path/cancel-off.png');
-        });
-      });
-
-      context('with :iconRange', function() {
-        it ('changes the path', function() {
-          // given
-          var self = $('#element');
-
-          // when
-          self.raty({
-            path     : 'path',
-            iconRange: [{ range: 5 }]
-          });
-
-          // then
-          expect(self.children('img')).toHaveAttr('src', 'path/star-off.png');
-        });
+        expect(self.children('i').length).toEqual(1);
       });
     });
 
@@ -1108,7 +984,7 @@ describe('Raty', function() {
         self.raty({ cancel: true, cancelOff: 'off.png' });
 
         // then
-        expect(self.children('.raty-cancel')).toHaveAttr('src', 'off.png');
+        expect(self.children('i:first')).toHaveClass('off.png');
       });
     });
 
@@ -1118,10 +994,10 @@ describe('Raty', function() {
         var self = $('#element').raty({ cancel: true, cancelOn: 'icon.png' });
 
         // when
-        var cancel = self.children('.raty-cancel').mouseover();
+        var cancel = self.children('i:first').mouseover();
 
         // then
-        expect(cancel).toHaveAttr('src', 'icon.png');
+        expect(cancel).toHaveClass('icon.png');
       });
     });
 
@@ -1134,7 +1010,7 @@ describe('Raty', function() {
         self.raty({ cancel: true, cancelHint: 'hint' });
 
         // then
-        expect(self.children('.raty-cancel')).toHaveAttr('title', 'hint');
+        expect(self.children('i:first')).toHaveAttr('title', 'hint');
       });
     });
 
@@ -1147,12 +1023,10 @@ describe('Raty', function() {
         self.raty({ cancel: true, cancelPlace: 'right' });
 
         // then
-        var cancel = self.children('img:last');
+        var cancel = self.children('i:last');
 
-        expect(cancel).toHaveClass('raty-cancel');
+        expect(cancel).toHaveClass('fa fa-minus-square');
         expect(cancel).toHaveAttr('title', 'Cancel this rating!');
-        expect(cancel).toHaveAttr('alt', 'x');
-        expect(cancel).toHaveAttr('src', 'cancel-off.png');
       });
     });
 
@@ -1165,12 +1039,10 @@ describe('Raty', function() {
         self.raty({ cancel: true });
 
         // then
-        var cancel = self.children('.raty-cancel');
+        var cancel = self.children('i:first');
 
-        expect(cancel).toHaveClass('raty-cancel');
+        expect(cancel).toHaveClass('fa fa-minus-square');
         expect(cancel).toHaveAttr('title', 'Cancel this rating!');
-        expect(cancel).toHaveAttr('alt', 'x');
-        expect(cancel).toHaveAttr('src', 'cancel-off.png');
       });
 
       context('on mouseover', function() {
@@ -1179,23 +1051,23 @@ describe('Raty', function() {
           var self = $('#element').raty({ cancel: true });
 
           // when
-          var cancel = self.children('.raty-cancel').mouseover();
+          var cancel = self.children('i:first').mouseover();
 
           // then
-          expect(cancel).toHaveAttr('src', 'cancel-on.png');
+          expect(cancel).toHaveClass('fa fa-check-square');
         });
 
         context('with :score', function() {
           it ('turns off the stars', function() {
             // given
             var self  = $('#element').raty({ score: 3, cancel: true }),
-                imgs  = self.children('img:not(.raty-cancel)');
+                imgs  = self.children('i:not(i:first)');
 
             // when
-            self.children('.raty-cancel').mouseover();
+            self.children('i:first').mouseover();
 
             // then
-            expect(imgs).toHaveAttr('src', 'star-off.png');
+            expect(imgs).toHaveClass('fa fa-star-o');
           });
         });
       });
@@ -1206,27 +1078,27 @@ describe('Raty', function() {
           var self = $('#element').raty({ cancel: true });
 
           // when
-          var cancel = self.children('.raty-cancel').mouseover().mouseout();
+          var cancel = self.children('i:first').mouseover().mouseout();
 
           // then
-          expect(cancel).toHaveAttr('src', 'cancel-off.png');
+          expect(cancel).toHaveClass('fa fa-minus-square');
         });
 
         context('with :score', function() {
           it ('turns the star on again', function() {
             // given
             var self  = $('#element').raty({ score: 4, cancel: true }),
-                imgs  = self.children('img:not(.raty-cancel)');
+                imgs  = self.children('i:not(i:first)');
 
             // when
-            self.children('.raty-cancel').mouseover().mouseout();
+            self.children('i:first').mouseover().mouseout();
 
             // then
-            expect(imgs.eq(0)).toHaveAttr('src', 'star-on.png');
-            expect(imgs.eq(1)).toHaveAttr('src', 'star-on.png');
-            expect(imgs.eq(2)).toHaveAttr('src', 'star-on.png');
-            expect(imgs.eq(3)).toHaveAttr('src', 'star-on.png');
-            expect(imgs.eq(4)).toHaveAttr('src', 'star-off.png');
+            expect(imgs.eq(0)).toHaveClass('fa fa-star');
+            expect(imgs.eq(1)).toHaveClass('fa fa-star');
+            expect(imgs.eq(2)).toHaveClass('fa fa-star');
+            expect(imgs.eq(3)).toHaveClass('fa fa-star');
+            expect(imgs.eq(4)).toHaveClass('fa fa-star-o');
           });
         });
       });
@@ -1237,12 +1109,12 @@ describe('Raty', function() {
           var self = $('#element').raty({ cancel: true, score: 1 });
 
           // when
-          self.children('.raty-cancel').click().mouseout();
+          self.children('i:first').click().mouseout();
 
           // then
-          var stars = self.children('img:not(.raty-cancel)');
+          var stars = self.children('i:not(i:first)');
 
-          expect(stars).toHaveAttr('src', 'star-off.png');
+          expect(stars).toHaveClass('fa fa-star-o');
           expect(self.children('input').val()).toEqual('');
         });
       });
@@ -1250,13 +1122,13 @@ describe('Raty', function() {
       context('when starts :readOnly', function() {
         it ('starts hidden', function() {
           // given
-          var self = $('#element').raty({ cancel: true, readOnly: true, path: '../img' });
+          var self = $('#element').raty({ cancel: true, readOnly: true });
 
           // when
           self.raty('readOnly', true);
 
           // then
-          expect(self.children('.raty-cancel')).toBeHidden();
+          expect(self.children('i:first')).toBeHidden();
         });
 
         context('on click', function() {
@@ -1265,12 +1137,12 @@ describe('Raty', function() {
             var self = $('#element').raty({ cancel: true, readOnly: true, score: 5 });
 
             // when
-            self.children('.raty-cancel').click().mouseout();
+            self.children('i:first').click().mouseout();
 
             // then
-            var stars = self.children('img:not(.raty-cancel)');
+            var stars = self.children('i:not(i:first)');
 
-            expect(stars).toHaveAttr('src', 'star-on.png');
+            expect(stars).toHaveClass('fa fa-star');
             expect(self.children('input').val()).toEqual('5');
           });
         });
@@ -1279,13 +1151,13 @@ describe('Raty', function() {
       context('when become :readOnly', function() {
         it ('becomes hidden', function() {
           // given
-          var self = $('#element').raty({ cancel: true, path: '../img' });
+          var self = $('#element').raty({ cancel: true });
 
           // when
           self.raty('readOnly', true);
 
           // then
-          expect(self.children('.raty-cancel')).toBeHidden();
+          expect(self.children('i:first')).toBeHidden();
         });
       });
     });
@@ -1312,7 +1184,7 @@ describe('Raty', function() {
           var self = $('#element').raty({ target: '#hint', targetType: 'hint' });
 
           // when
-          self.children('img:first').mouseover();
+          self.children('i:first').mouseover();
 
           // then
           expect($('#hint')).toHaveHtml('bad');
@@ -1324,7 +1196,7 @@ describe('Raty', function() {
             var self = $('#element').raty({ cancel: true, target: '#hint', targetType: 'hint' });
 
             // when
-            self.children('.raty-cancel').mouseover();
+            self.children('i:first').mouseover();
 
             // then
             expect($('#hint')).toHaveHtml('Cancel this rating!');
@@ -1338,7 +1210,7 @@ describe('Raty', function() {
           var self = $('#element').raty({ target: '#hint', targetType: 'score' });
 
           // when
-          self.children('img:first').mouseover();
+          self.children('i:first').mouseover();
 
           // then
           expect($('#hint')).toHaveHtml(1);
@@ -1350,7 +1222,7 @@ describe('Raty', function() {
             var self = $('#element').raty({ cancel: true, target: '#hint', targetType: 'score' });
 
             // when
-            self.children('.raty-cancel').mouseover();
+            self.children('i:first').mouseover();
 
             // then
             expect($('#hint')).toHaveHtml('Cancel this rating!');
@@ -1409,7 +1281,7 @@ describe('Raty', function() {
             var self = $('#element').raty({ target: '#hint', targetFormat: 'score: {score}' });
 
             // when
-            self.children('img:first').mouseover();
+            self.children('i:first').mouseover();
 
             // then
             expect($('#hint')).toHaveHtml('score: bad');
@@ -1425,7 +1297,7 @@ describe('Raty', function() {
                 });
 
             // when
-            self.children('img:first').mouseover().mouseout();
+            self.children('i:first').mouseover().mouseout();
 
             // then
             expect($('#hint')).toBeEmpty();
@@ -1442,7 +1314,7 @@ describe('Raty', function() {
                     });
 
                 // when
-                self.children('img:first').mouseover().mouseleave();
+                self.children('i:first').mouseover().mouseleave();
 
                 // then
                 expect($('#hint')).toBeEmpty();
@@ -1460,7 +1332,7 @@ describe('Raty', function() {
                     });
 
                 // when
-                self.children('img:first').mouseover().mouseleave();
+                self.children('i:first').mouseover().mouseleave();
 
                 // then
                 expect($('#hint')).toHaveHtml('score: bad');
@@ -1530,7 +1402,7 @@ describe('Raty', function() {
             var self = $('#element').raty({ target: '#hint' });
 
             // when
-            self.children('img:first').mouseover();
+            self.children('i:first').mouseover();
 
             // then
             expect($('#hint')).toHaveHtml('bad');
@@ -1545,7 +1417,7 @@ describe('Raty', function() {
             var self = $('#element').raty({ target: '#hint' });
 
             // when
-            self.children('img:first').mouseover();
+            self.children('i:first').mouseover();
 
             // then
             expect($('#hint')).toHaveValue('bad');
@@ -1560,7 +1432,7 @@ describe('Raty', function() {
             var self = $('#element').raty({ target: '#hint' });
 
             // when
-            self.children('img:first').mouseover();
+            self.children('i:first').mouseover();
 
             // then
             expect($('#hint')).toHaveValue('bad');
@@ -1575,7 +1447,7 @@ describe('Raty', function() {
             var self = $('#element').raty({ target: '#hint' });
 
             // when
-            self.children('img:first').mouseover();
+            self.children('i:first').mouseover();
 
             // then
             expect($('#hint')).toHaveValue('bad');
@@ -1592,7 +1464,7 @@ describe('Raty', function() {
             var self = $('#element').raty({ target: '#hint' });
 
             // when
-            self.children('img:first').mouseover().click().mouseleave();
+            self.children('i:first').mouseover().click().mouseleave();
 
             // then
             expect($('#hint')).toBeEmpty();
@@ -1607,7 +1479,7 @@ describe('Raty', function() {
             var self = $('#element').raty({ target: '#hint' });
 
             // when
-            self.children('img:first').click().mouseover().mouseleave();
+            self.children('i:first').click().mouseover().mouseleave();
 
             // then
             expect($('#hint')).toHaveValue('');
@@ -1622,7 +1494,7 @@ describe('Raty', function() {
             var self = $('#element').raty({ target: '#hint' });
 
             // when
-            self.children('img:first').click().mouseover().mouseleave();
+            self.children('i:first').click().mouseover().mouseleave();
 
             // then
             expect($('#hint')).toHaveValue('');
@@ -1637,76 +1509,10 @@ describe('Raty', function() {
             var self = $('#element').raty({ target: '#hint' });
 
             // when
-            self.children('img:first').click().mouseover().mouseleave();
+            self.children('i:first').click().mouseover().mouseleave();
 
             // then
             expect($('#hint')).toHaveValue('');
-          });
-        });
-      });
-    });
-
-    describe('#size', function() {
-      it ('calculate the right icon size', function() {
-        // given
-        var self  = $('#element'),
-            size  = 24,
-            stars = 5,
-            space = 4;
-
-        // when
-        self.raty({ size: size });
-
-        // then
-        expect(self.width()).toEqual((stars * size) + (stars * space));
-      });
-
-      context('with :cancel', function() {
-        it ('addes the cancel and space witdh', function() {
-          // given
-          var self    = $('#element'),
-              size    = 24,
-              stars   = 5,
-              cancel  = size,
-              space   = 4;
-
-          // when
-          self.raty({ cancel: true, size: size });
-
-          // then
-          expect(self.width()).toEqual(cancel + space + (stars * size) + (stars * space));
-        });
-      });
-    });
-
-    describe('#space', function() {
-      context('when off', function() {
-        it ('takes off the space', function() {
-          // given
-          var self  = $('#element');
-              size  = 16,
-              stars  = 5;
-
-          // when
-          self.raty({ space: false });
-
-          // then
-          expect(self.width()).toEqual(size * stars);
-        });
-
-        context('with :cancel', function() {
-          it ('takes off the space', function() {
-            // given
-            var self    = $('#element');
-                size    = 16,
-                stars   = 5,
-                cancel  = size;
-
-            // when
-            self.raty({ cancel: true, space: false });
-
-            // then
-            expect(self.width()).toEqual(cancel + (size * stars));
           });
         });
       });
@@ -1717,17 +1523,17 @@ describe('Raty', function() {
         it ('turns on just one icon', function() {
           // given
           var self = $('#element').raty({ single: true }),
-              imgs = self.children('img');
+              imgs = self.children('i');
 
           // when
           imgs.eq(2).mouseover();
 
           // then
-          expect(imgs.eq(0)).toHaveAttr('src', 'star-off.png');
-          expect(imgs.eq(1)).toHaveAttr('src', 'star-off.png');
-          expect(imgs.eq(2)).toHaveAttr('src', 'star-on.png');
-          expect(imgs.eq(3)).toHaveAttr('src', 'star-off.png');
-          expect(imgs.eq(4)).toHaveAttr('src', 'star-off.png');
+          expect(imgs.eq(0)).toHaveClass('fa fa-star-o');
+          expect(imgs.eq(1)).toHaveClass('fa fa-star-o');
+          expect(imgs.eq(2)).toHaveClass('fa fa-star');
+          expect(imgs.eq(3)).toHaveClass('fa fa-star-o');
+          expect(imgs.eq(4)).toHaveClass('fa fa-star-o');
         });
 
         context('with :iconRange', function() {
@@ -1742,17 +1548,17 @@ describe('Raty', function() {
                     { range: 5, on: 'd.png', off: 'd-off.png' }
                   ]
                 }),
-                imgs = self.children('img');
+                imgs = self.children('i');
 
             // when
             imgs.eq(3).mouseover();
 
             // then
-            expect(imgs.eq(0)).toHaveAttr('src', 'a-off.png');
-            expect(imgs.eq(1)).toHaveAttr('src', 'a-off.png');
-            expect(imgs.eq(2)).toHaveAttr('src', 'b-off.png');
-            expect(imgs.eq(3)).toHaveAttr('src', 'c.png');
-            expect(imgs.eq(4)).toHaveAttr('src', 'd-off.png');
+            expect(imgs.eq(0)).toHaveClass('a-off.png');
+            expect(imgs.eq(1)).toHaveClass('a-off.png');
+            expect(imgs.eq(2)).toHaveClass('b-off.png');
+            expect(imgs.eq(3)).toHaveClass('c.png');
+            expect(imgs.eq(4)).toHaveClass('d-off.png');
           });
         });
       });
@@ -1762,17 +1568,17 @@ describe('Raty', function() {
           it ('keeps the score', function() {
             // given
             var self = $('#element').raty({ single: true })
-                imgs = self.children('img');
+                imgs = self.children('i');
 
             // when
             imgs.eq(2).mouseover().click().mouseleave();
 
             // then
-            expect(imgs.eq(0)).toHaveAttr('src', 'star-off.png');
-            expect(imgs.eq(1)).toHaveAttr('src', 'star-off.png');
-            expect(imgs.eq(2)).toHaveAttr('src', 'star-on.png');
-            expect(imgs.eq(3)).toHaveAttr('src', 'star-off.png');
-            expect(imgs.eq(4)).toHaveAttr('src', 'star-off.png');
+            expect(imgs.eq(0)).toHaveClass('fa fa-star-o');
+            expect(imgs.eq(1)).toHaveClass('fa fa-star-o');
+            expect(imgs.eq(2)).toHaveClass('fa fa-star');
+            expect(imgs.eq(3)).toHaveClass('fa fa-star-o');
+            expect(imgs.eq(4)).toHaveClass('fa fa-star-o');
           });
 
           context('and :iconRange', function() {
@@ -1787,17 +1593,17 @@ describe('Raty', function() {
                       { range: 5, on: 'd.png', off: 'd-off.png' }
                     ]
                   }),
-                  imgs = self.children('img');
+                  imgs = self.children('i');
 
               // when
               imgs.eq(3).mouseover().click().mouseleave();
 
               // then
-              expect(imgs.eq(0)).toHaveAttr('src', 'a-off.png');
-              expect(imgs.eq(1)).toHaveAttr('src', 'a-off.png');
-              expect(imgs.eq(2)).toHaveAttr('src', 'b-off.png');
-              expect(imgs.eq(3)).toHaveAttr('src', 'c.png');
-              expect(imgs.eq(4)).toHaveAttr('src', 'd-off.png');
+              expect(imgs.eq(0)).toHaveClass('a-off.png');
+              expect(imgs.eq(1)).toHaveClass('a-off.png');
+              expect(imgs.eq(2)).toHaveClass('b-off.png');
+              expect(imgs.eq(3)).toHaveClass('c.png');
+              expect(imgs.eq(4)).toHaveClass('d-off.png');
             });
           });
         });
@@ -1859,11 +1665,11 @@ describe('Raty', function() {
                 score   : .5 // score.5 < full.6 === 0
               });
 
-              var imgs = self.children('img');
+              var imgs = self.children('i');
 
               // then
-              expect(imgs.eq(0)).toHaveAttr('src', 'star-off.png');
-              expect(imgs.eq(1)).toHaveAttr('src', 'star-off.png');
+              expect(imgs.eq(0)).toHaveClass('fa fa-star-o');
+              expect(imgs.eq(1)).toHaveClass('fa fa-star-o');
             });
 
             it ('rounds full when equal the full limit', function() {
@@ -1878,10 +1684,10 @@ describe('Raty', function() {
                 score   : .6 // score.6 == full.6 === 1
               });
 
-              var imgs = self.children('img');
+              var imgs = self.children('i');
 
               // then
-              expect(imgs.eq(0)).toHaveAttr('src', 'star-on.png');
+              expect(imgs.eq(0)).toHaveClass('fa fa-star');
             });
           });
         });
@@ -1903,9 +1709,9 @@ describe('Raty', function() {
               });
 
               // then
-              var imgs = self.children('img');
+              var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveAttr('src', 'star-off.png');
+              expect(imgs.eq(0)).toHaveClass('fa fa-star-o');
               expect(self.children('input').val()).toEqual('0.24');
             });
 
@@ -1922,9 +1728,9 @@ describe('Raty', function() {
               });
 
               // then
-              var imgs = self.children('img');
+              var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveAttr('src', 'star-off.png');
+              expect(imgs.eq(0)).toHaveClass('fa fa-star-o');
               expect(self.children('input').val()).toEqual('0.26');
             });
 
@@ -1941,9 +1747,9 @@ describe('Raty', function() {
               });
 
               // then
-              var imgs = self.children('img');
+              var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveAttr('src', 'star-on.png');
+              expect(imgs.eq(0)).toHaveClass('fa fa-star');
               expect(self.children('input').val()).toEqual('0.6');
             });
 
@@ -1960,9 +1766,9 @@ describe('Raty', function() {
               });
 
               // then
-              var imgs = self.children('img');
+              var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveAttr('src', 'star-on.png');
+              expect(imgs.eq(0)).toHaveClass('fa fa-star');
               expect(self.children('input').val()).toEqual('0.75');
             });
 
@@ -1979,9 +1785,9 @@ describe('Raty', function() {
               });
 
               // then
-              var imgs = self.children('img');
+              var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveAttr('src', 'star-on.png');
+              expect(imgs.eq(0)).toHaveClass('fa fa-star');
             });
           });
 
@@ -1999,9 +1805,9 @@ describe('Raty', function() {
               });
 
               // then
-              var imgs = self.children('img');
+              var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveAttr('src', 'star-off.png');
+              expect(imgs.eq(0)).toHaveClass('fa fa-star-o');
             });
 
             it ('receives half while greater then down limit', function() {
@@ -2017,9 +1823,9 @@ describe('Raty', function() {
               });
 
               // then
-              var imgs = self.children('img');
+              var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveAttr('src', 'star-half.png');
+              expect(imgs.eq(0)).toHaveClass('fa fa-star-half-o');
             });
 
             it ('receives half while equal full limit, ignoring it', function() {
@@ -2035,9 +1841,9 @@ describe('Raty', function() {
               });
 
               // then
-              var imgs = self.children('img');
+              var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveAttr('src', 'star-half.png');
+              expect(imgs.eq(0)).toHaveClass('fa fa-star-half-o');
             });
 
             it ('receives half while greater than down limit and less than up limit', function() {
@@ -2053,9 +1859,9 @@ describe('Raty', function() {
               });
 
               // then
-              var imgs = self.children('img');
+              var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveAttr('src', 'star-half.png');
+              expect(imgs.eq(0)).toHaveClass('fa fa-star-half-o');
             });
 
             it ('receives full while equal or greater than up limit', function() {
@@ -2071,9 +1877,9 @@ describe('Raty', function() {
               });
 
               // then
-              var imgs = self.children('img');
+              var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveAttr('src', 'star-on.png');
+              expect(imgs.eq(0)).toHaveClass('fa fa-star');
             });
           });
         });
@@ -2140,7 +1946,7 @@ describe('Raty', function() {
       self.raty();
 
       // then
-      var imgs  = self.eq(0).children('img'),
+      var imgs  = self.eq(0).children('i'),
           score = self.eq(0).children('input');
 
       expect(imgs.eq(0)).toHaveAttr('title', 'bad');
@@ -2148,12 +1954,12 @@ describe('Raty', function() {
       expect(imgs.eq(2)).toHaveAttr('title', 'regular');
       expect(imgs.eq(3)).toHaveAttr('title', 'good');
       expect(imgs.eq(4)).toHaveAttr('title', 'gorgeous');
-      expect(imgs).toHaveAttr('src', 'star-off.png');
+      expect(imgs).toHaveClass('fa fa-star-o');
       expect(score).toHaveAttr('type', 'hidden');
       expect(score).toHaveAttr('name', 'score');
       expect(score.val()).toEqual('');
 
-      imgs  = self.eq(1).children('img');
+      imgs  = self.eq(1).children('i');
       score = self.eq(0).children('input');
 
       expect(imgs.eq(0)).toHaveAttr('title', 'bad');
@@ -2161,7 +1967,7 @@ describe('Raty', function() {
       expect(imgs.eq(2)).toHaveAttr('title', 'regular');
       expect(imgs.eq(3)).toHaveAttr('title', 'good');
       expect(imgs.eq(4)).toHaveAttr('title', 'gorgeous');
-      expect(imgs).toHaveAttr('src', 'star-off.png');
+      expect(imgs).toHaveClass('fa fa-star-o');
       expect(score).toHaveAttr('type', 'hidden');
       expect(score).toHaveAttr('name', 'score');
       expect(score.val()).toEqual('');
@@ -2270,7 +2076,7 @@ describe('Raty', function() {
           self.raty('score', 5);
 
           // then
-          expect(self.children('img')).toHaveAttr('src', 'star-on.png');
+          expect(self.children('i')).toHaveClass('fa fa-star');
         });
       });
 
@@ -2296,7 +2102,7 @@ describe('Raty', function() {
           self.raty('score', 5);
 
           // then
-          expect(self.children('img')).toHaveAttr('src', 'star-off.png');
+          expect(self.children('i')).toHaveClass('fa fa-star-o');
         });
       });
     });
@@ -2332,7 +2138,7 @@ describe('Raty', function() {
         var ref = self.raty('set', { scoreName: 'change-just-it' });
 
         // then
-        expect(ref.children('img').length).toEqual(6);
+        expect(ref.children('i').length).toEqual(6);
       });
 
       context('with external bind on wrapper', function() {
@@ -2397,13 +2203,13 @@ describe('Raty', function() {
           self.raty('readOnly', true);
 
           // then
-          expect(self.children('img')).toHaveAttr('title', 'Not rated yet!');
+          expect(self.children('i')).toHaveAttr('title', 'Not rated yet!');
         });
 
         it ('avoids trigger mouseover', function() {
           // given
           var self = $('#element').raty(),
-              imgs = self.children('img');
+              imgs = self.children('i');
 
           self.raty('readOnly', true);
 
@@ -2411,13 +2217,13 @@ describe('Raty', function() {
           imgs.eq(0).mouseover();
 
           // then
-          expect(imgs).toHaveAttr('src', 'star-off.png');
+          expect(imgs).toHaveClass('fa fa-star-o');
         });
 
         it ('avoids trigger click', function() {
           // given
           var self = $('#element').raty(),
-              imgs = self.children('img');
+              imgs = self.children('i');
 
           self.raty('readOnly', true);
 
@@ -2425,7 +2231,7 @@ describe('Raty', function() {
           imgs.eq(0).mouseover().click().mouseleave();
 
           // then
-          expect(imgs).toHaveAttr('src', 'star-off.png');
+          expect(imgs).toHaveClass('fa fa-star-o');
           expect(self.children('input').val()).toEqual('');
         });
 
@@ -2438,7 +2244,7 @@ describe('Raty', function() {
             self.raty('readOnly', true);
 
             // then
-            expect(self.children('img')).toHaveAttr('title', 'bad');
+            expect(self.children('i')).toHaveAttr('title', 'bad');
           });
         });
 
@@ -2451,7 +2257,7 @@ describe('Raty', function() {
             self.raty('readOnly', true);
 
             // then
-            expect(self.children('.raty-cancel')).toBeHidden();
+            expect(self.children('i:first')).toBeHidden();
           });
         });
 
@@ -2474,7 +2280,7 @@ describe('Raty', function() {
           it ('keeps it', function() {
             // given
             var self = $('#element').raty(),
-                star = self.children('img').first();
+                star = self.children('i').first();
 
             star.on('click', function() {
               self.data('externalClick', true);
@@ -2516,7 +2322,7 @@ describe('Raty', function() {
         it ('Removes the "Not rated yet!" off the stars', function() {
           // given
           var self   = $('#element').raty({ readOnly: true }),
-              imgs  = self.children('img');
+              imgs  = self.children('i');
 
           // when
           self.raty('readOnly', false);
@@ -2532,7 +2338,7 @@ describe('Raty', function() {
         it ('triggers mouseover', function() {
           // given
           var self = $('#element').raty({ readOnly: true }),
-              imgs = self.children('img');
+              imgs = self.children('i');
 
           self.raty('readOnly', false);
 
@@ -2540,13 +2346,13 @@ describe('Raty', function() {
           imgs.eq(0).mouseover();
 
           // then
-          expect(imgs.eq(0)).toHaveAttr('src', 'star-on.png');
+          expect(imgs.eq(0)).toHaveClass('fa fa-star');
         });
 
         it ('triggers click', function() {
           // given
           var self = $('#element').raty({ readOnly: true }),
-              imgs = self.children('img');
+              imgs = self.children('i');
 
           self.raty('readOnly', false);
 
@@ -2554,7 +2360,7 @@ describe('Raty', function() {
           imgs.eq(0).mouseover().click().mouseleave();
 
           // then
-          expect(imgs).toHaveAttr('src', 'star-on.png');
+          expect(imgs).toHaveClass('fa fa-star');
           expect(self.children('input')).toHaveValue('1');
         });
 
@@ -2567,7 +2373,7 @@ describe('Raty', function() {
             self.raty('readOnly', false);
 
             // then
-            var imgs = self.children('img')
+            var imgs = self.children('i')
 
             expect(imgs.eq(0)).toHaveAttr('title', 'bad');
             expect(imgs.eq(1)).toHaveAttr('title', 'poor');
@@ -2578,23 +2384,12 @@ describe('Raty', function() {
         });
 
         context('with :cancel', function() {
-          it ('shows the button', function() {
-            // given
-            var self = $('#element').raty({ readOnly: true, cancel: true, path: '../lib/img' });
-
-            // when
-            self.raty('readOnly', false);
-
-            // then
-            expect(self.children('.raty-cancel')).toBeVisible();
-            expect(self.children('.raty-cancel')).not.toHaveCss({ display: 'block' });
-          });
 
           it ('rebinds the mouseover', function() {
             // given
             var self   = $('#element').raty({ readOnly: true, cancel: true }),
-                cancel = self.children('.raty-cancel'),
-                imgs   = self.children('img:not(.raty-cancel)');
+                cancel = self.children('i:first'),
+                imgs   = self.children('i:not(i:first)');
 
             // when
             self.raty('readOnly', false);
@@ -2602,22 +2397,22 @@ describe('Raty', function() {
             cancel.mouseover();
 
             // then
-            expect(cancel).toHaveAttr('src', 'cancel-on.png');
-            expect(imgs).toHaveAttr('src', 'star-off.png');
+            expect(cancel).toHaveClass('fa fa-check-square');
+            expect(imgs).toHaveClass('fa fa-star-o');
           });
 
           it ('rebinds the click', function() {
             // given
             var self = $('#element').raty({ readOnly: true, cancel: true, score: 5 }),
-                imgs = self.children('img:not(.raty-cancel)');
+                imgs = self.children('i:not(i:first)');
 
             // when
             self.raty('readOnly', false);
 
-            self.children('.raty-cancel').click().mouseout();
+            self.children('i:first').click().mouseout();
 
             // then
-            expect(imgs).toHaveAttr('src', 'star-off.png');
+            expect(imgs).toHaveClass('fa fa-star-o');
           });
         });
       });
@@ -2633,7 +2428,7 @@ describe('Raty', function() {
           self.raty('cancel');
 
           // then
-          expect(self.children('img')).toHaveAttr('src', 'star-on.png');
+          expect(self.children('i')).toHaveClass('fa fa-star');
         });
       });
 
@@ -2651,7 +2446,7 @@ describe('Raty', function() {
           self.raty('cancel');
 
           // then
-          expect(self.children('img')).toHaveAttr('src', 'star-off.png');
+          expect(self.children('i')).toHaveClass('fa fa-star-o');
           expect(self.children('input').val()).toEqual('');
           expect(self.data('clicked')).toBeFalsy();
         });
@@ -2671,7 +2466,7 @@ describe('Raty', function() {
           self.raty('cancel', true);
 
           // then
-          expect(self.children('img')).toHaveAttr('src', 'star-off.png');
+          expect(self.children('i')).toHaveClass('fa fa-star-o');
           expect(self.children('input').val()).toEqual('');
           expect(self.data('clicked')).toBeTruthy();
         });
@@ -2714,7 +2509,7 @@ describe('Raty', function() {
         self.raty('click', 1);
 
         // then
-        expect(self.children('img')).toHaveAttr('src', 'star-on.png');
+        expect(self.children('i')).toHaveClass('fa fa-star');
         expect(self.data('clicked')).toBeTruthy();
       });
 
@@ -2757,7 +2552,7 @@ describe('Raty', function() {
           self.raty('click', 1);
 
           // then
-          expect(self.children('img')).toHaveAttr('src', 'star-off.png');
+          expect(self.children('i')).toHaveClass('fa fa-star-o');
         });
       });
 
@@ -2816,7 +2611,7 @@ describe('Raty', function() {
         var ref = self.raty('reload');
 
         // then
-        expect(ref.children('img').length).toEqual(6);
+        expect(ref.children('i').length).toEqual(6);
       });
 
       context('when :readOnly by function', function() {
