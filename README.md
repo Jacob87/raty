@@ -105,4 +105,5 @@ $('#star').raty('destroy');                // Destroy the bind and give you the 
 ## License
 
 The MIT License
+
 Original jQuery Raty plugin by Washington Botelho
