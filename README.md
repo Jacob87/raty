@@ -1,14 +1,17 @@
 # jQuery Raty FA - A Star Rating Plugin with Font Awesome
 
-[http://jacob87.github.io/raty-fa/](http://jacob87.github.io/raty-fa/) - jQuery Raty FA is a plugin that generates a customizable star rating with Font Awesome.
+## Description
+jQuery Raty FA is a plugin that generates a customizable star rating with Font Awesome. The plugin is a fork of the original [https://github.com/wbotelhos/raty](jQuery Raty plugin) by Washington Botelho.
+
+### Demo
+[http://jacob87.github.io/raty-fa/](http://jacob87.github.io/raty-fa/)
 
 ## Version
 
 ```
 @version  0.1
 @since    2014-04-06
-@author	  Jacob Overgaard
-@original [https://github.com/wbotelhos/raty](jQuery Raty) by Washington Botelho
+@author	  Jacob Overgaard (http://jovergaard.me)
 ```
 
 ## Required Files
@@ -58,7 +61,7 @@ width       : false                                          // Manually adjust 
 ## Usage
 
 ```css
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/latest/css/font-awesome.css" rel="stylesheet">
 ```
 
 ```html
@@ -99,7 +102,7 @@ $('#star').raty('set', { option: value }); // Reset the rating with new configur
 $('#star').raty('destroy');                // Destroy the bind and give you the raw element.
 ```
 
-## Licence
+## License
 
 The MIT License
-Original plugin by Washington Botelho
+Original jQuery Raty plugin by Washington Botelho
