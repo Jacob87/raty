@@ -78,7 +78,7 @@ describe('Raty', function() {
       expect(imgs.eq(2)).toHaveAttr('title', 'regular');
       expect(imgs.eq(3)).toHaveAttr('title', 'good');
       expect(imgs.eq(4)).toHaveAttr('title', 'gorgeous');
-      expect(imgs).toHaveClass('fa fa-star-o');
+      expect(imgs).toHaveClass('fa fa-fw fa-star-o');
       expect(score).toHaveAttr('type', 'hidden');
       expect(score).toHaveAttr('name', 'score');
       expect(score.val()).toEqual('');
@@ -94,7 +94,7 @@ describe('Raty', function() {
       self.raty();
 
       // then
-      expect(self.children('i')).toHaveClass('fa fa-star-o');
+      expect(self.children('i')).toHaveClass('fa fa-fw fa-star-o');
     });
 
     context('on :mouseover', function() {
@@ -107,7 +107,7 @@ describe('Raty', function() {
         imgs.eq(4).mouseover();
 
         // then
-        expect(imgs).toHaveClass('fa fa-star');
+        expect(imgs).toHaveClass('fa fa-fw fa-star');
       });
 
       context('and :mouseout', function() {
@@ -120,7 +120,7 @@ describe('Raty', function() {
           imgs.eq(4).mouseover().mouseout();
 
           // then
-          expect(imgs).toHaveClass('fa fa-star-o');
+          expect(imgs).toHaveClass('fa fa-fw fa-star-o');
         });
       });
     });
@@ -148,7 +148,7 @@ describe('Raty', function() {
           imgs.eq(4).mouseover().click().mouseout();
 
           // then
-          expect(imgs).toHaveClass('fa fa-star');
+          expect(imgs).toHaveClass('fa fa-fw fa-star');
         });
       });
     });
@@ -189,28 +189,28 @@ describe('Raty', function() {
         var self = $('#element');
 
         // when
-        self.raty({ starOff: 'fa-beer' });
+        self.raty({ starOff: 'fa fa-fw fa-beer' });
 
         // then
-        expect(self.children('i')).toHaveClass('fa-beer');
+        expect(self.children('i')).toHaveClass('fa fa-fw fa-beer');
       });
     });
 
     describe('#starOn', function() {
       it ('changes the icons', function() {
         // given
-        var self = $('#element').raty({ starOn: 'fa-beer' }),
+        var self = $('#element').raty({ starOn: 'fa fa-fw fa-beer' }),
             imgs = self.children('i');
 
         // when
         imgs.eq(3).mouseover();
 
         // then
-        expect(imgs.eq(0)).toHaveClass('fa-beer');
-        expect(imgs.eq(1)).toHaveClass('fa-beer');
-        expect(imgs.eq(2)).toHaveClass('fa-beer');
-        expect(imgs.eq(3)).toHaveClass('fa-beer');
-        expect(imgs.eq(4)).toHaveClass('fa fa-star-o');
+        expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-beer');
+        expect(imgs.eq(1)).toHaveClass('fa fa-fw fa-beer');
+        expect(imgs.eq(2)).toHaveClass('fa fa-fw fa-beer');
+        expect(imgs.eq(3)).toHaveClass('fa fa-fw fa-beer');
+        expect(imgs.eq(4)).toHaveClass('fa fa-fw fa-star-o');
       });
     });
 
@@ -255,7 +255,7 @@ describe('Raty', function() {
           });
 
           // then
-          expect(self.children('i').eq(4)).toHaveClass('fa fa-star-o');
+          expect(self.children('i').eq(4)).toHaveClass('fa fa-fw fa-star-o');
         });
       });
 
@@ -304,7 +304,7 @@ describe('Raty', function() {
             expect(imgs.eq(1)).toHaveClass('on.png');
             expect(imgs.eq(2)).toHaveClass('on.png');
             expect(imgs.eq(3)).toHaveClass('on.png');
-            expect(imgs.eq(4)).toHaveClass('fa fa-star');
+            expect(imgs.eq(4)).toHaveClass('fa fa-fw fa-star');
           });
         });
       });
@@ -375,7 +375,7 @@ describe('Raty', function() {
             self.mouseleave();
 
             // then
-            expect(img).toHaveClass('fa fa-star-o');
+            expect(img).toHaveClass('fa fa-fw fa-star-o');
           });
         });
       });
@@ -468,11 +468,11 @@ describe('Raty', function() {
         // then
         var imgs = self.children('i');
 
-        expect(imgs.eq(0)).toHaveClass('fa fa-star');
-        expect(imgs.eq(1)).toHaveClass('fa fa-star-o');
-        expect(imgs.eq(2)).toHaveClass('fa fa-star-o');
-        expect(imgs.eq(3)).toHaveClass('fa fa-star-o');
-        expect(imgs.eq(4)).toHaveClass('fa fa-star-o');
+        expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star');
+        expect(imgs.eq(1)).toHaveClass('fa fa-fw fa-star-o');
+        expect(imgs.eq(2)).toHaveClass('fa fa-fw fa-star-o');
+        expect(imgs.eq(3)).toHaveClass('fa fa-fw fa-star-o');
+        expect(imgs.eq(4)).toHaveClass('fa fa-fw fa-star-o');
       });
 
       it ('accepts callback', function() {
@@ -581,7 +581,7 @@ describe('Raty', function() {
         imgs.eq(1).mouseover();
 
         // then
-        expect(imgs).toHaveClass('fa fa-star-o');
+        expect(imgs).toHaveClass('fa fa-fw fa-star-o');
       });
 
       it ('avoids trigger click', function() {
@@ -593,7 +593,7 @@ describe('Raty', function() {
         imgs.eq(1).mouseover().click().mouseleave();
 
         // then
-        expect(imgs).toHaveClass('fa fa-star-o');
+        expect(imgs).toHaveClass('fa fa-fw fa-star-o');
         expect(self.children('input').val()).toEqual('');
       });
 
@@ -1025,7 +1025,7 @@ describe('Raty', function() {
         // then
         var cancel = self.children('i:last');
 
-        expect(cancel).toHaveClass('fa fa-minus-square');
+        expect(cancel).toHaveClass('fa fa-fw fa-minus-square');
         expect(cancel).toHaveAttr('title', 'Cancel this rating!');
       });
     });
@@ -1041,7 +1041,7 @@ describe('Raty', function() {
         // then
         var cancel = self.children('i:first');
 
-        expect(cancel).toHaveClass('fa fa-minus-square');
+        expect(cancel).toHaveClass('fa fa-fw fa-minus-square');
         expect(cancel).toHaveAttr('title', 'Cancel this rating!');
       });
 
@@ -1054,7 +1054,7 @@ describe('Raty', function() {
           var cancel = self.children('i:first').mouseover();
 
           // then
-          expect(cancel).toHaveClass('fa fa-check-square');
+          expect(cancel).toHaveClass('fa fa-fw fa-check-square');
         });
 
         context('with :score', function() {
@@ -1067,7 +1067,7 @@ describe('Raty', function() {
             self.children('i:first').mouseover();
 
             // then
-            expect(imgs).toHaveClass('fa fa-star-o');
+            expect(imgs).toHaveClass('fa fa-fw fa-star-o');
           });
         });
       });
@@ -1081,7 +1081,7 @@ describe('Raty', function() {
           var cancel = self.children('i:first').mouseover().mouseout();
 
           // then
-          expect(cancel).toHaveClass('fa fa-minus-square');
+          expect(cancel).toHaveClass('fa fa-fw fa-minus-square');
         });
 
         context('with :score', function() {
@@ -1094,11 +1094,11 @@ describe('Raty', function() {
             self.children('i:first').mouseover().mouseout();
 
             // then
-            expect(imgs.eq(0)).toHaveClass('fa fa-star');
-            expect(imgs.eq(1)).toHaveClass('fa fa-star');
-            expect(imgs.eq(2)).toHaveClass('fa fa-star');
-            expect(imgs.eq(3)).toHaveClass('fa fa-star');
-            expect(imgs.eq(4)).toHaveClass('fa fa-star-o');
+            expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star');
+            expect(imgs.eq(1)).toHaveClass('fa fa-fw fa-star');
+            expect(imgs.eq(2)).toHaveClass('fa fa-fw fa-star');
+            expect(imgs.eq(3)).toHaveClass('fa fa-fw fa-star');
+            expect(imgs.eq(4)).toHaveClass('fa fa-fw fa-star-o');
           });
         });
       });
@@ -1114,7 +1114,7 @@ describe('Raty', function() {
           // then
           var stars = self.children('i:not(i:first)');
 
-          expect(stars).toHaveClass('fa fa-star-o');
+          expect(stars).toHaveClass('fa fa-fw fa-star-o');
           expect(self.children('input').val()).toEqual('');
         });
       });
@@ -1142,7 +1142,7 @@ describe('Raty', function() {
             // then
             var stars = self.children('i:not(i:first)');
 
-            expect(stars).toHaveClass('fa fa-star');
+            expect(stars).toHaveClass('fa fa-fw fa-star');
             expect(self.children('input').val()).toEqual('5');
           });
         });
@@ -1529,11 +1529,11 @@ describe('Raty', function() {
           imgs.eq(2).mouseover();
 
           // then
-          expect(imgs.eq(0)).toHaveClass('fa fa-star-o');
-          expect(imgs.eq(1)).toHaveClass('fa fa-star-o');
-          expect(imgs.eq(2)).toHaveClass('fa fa-star');
-          expect(imgs.eq(3)).toHaveClass('fa fa-star-o');
-          expect(imgs.eq(4)).toHaveClass('fa fa-star-o');
+          expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star-o');
+          expect(imgs.eq(1)).toHaveClass('fa fa-fw fa-star-o');
+          expect(imgs.eq(2)).toHaveClass('fa fa-fw fa-star');
+          expect(imgs.eq(3)).toHaveClass('fa fa-fw fa-star-o');
+          expect(imgs.eq(4)).toHaveClass('fa fa-fw fa-star-o');
         });
 
         context('with :iconRange', function() {
@@ -1574,11 +1574,11 @@ describe('Raty', function() {
             imgs.eq(2).mouseover().click().mouseleave();
 
             // then
-            expect(imgs.eq(0)).toHaveClass('fa fa-star-o');
-            expect(imgs.eq(1)).toHaveClass('fa fa-star-o');
-            expect(imgs.eq(2)).toHaveClass('fa fa-star');
-            expect(imgs.eq(3)).toHaveClass('fa fa-star-o');
-            expect(imgs.eq(4)).toHaveClass('fa fa-star-o');
+            expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star-o');
+            expect(imgs.eq(1)).toHaveClass('fa fa-fw fa-star-o');
+            expect(imgs.eq(2)).toHaveClass('fa fa-fw fa-star');
+            expect(imgs.eq(3)).toHaveClass('fa fa-fw fa-star-o');
+            expect(imgs.eq(4)).toHaveClass('fa fa-fw fa-star-o');
           });
 
           context('and :iconRange', function() {
@@ -1668,8 +1668,8 @@ describe('Raty', function() {
               var imgs = self.children('i');
 
               // then
-              expect(imgs.eq(0)).toHaveClass('fa fa-star-o');
-              expect(imgs.eq(1)).toHaveClass('fa fa-star-o');
+              expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star-o');
+              expect(imgs.eq(1)).toHaveClass('fa fa-fw fa-star-o');
             });
 
             it ('rounds full when equal the full limit', function() {
@@ -1687,7 +1687,7 @@ describe('Raty', function() {
               var imgs = self.children('i');
 
               // then
-              expect(imgs.eq(0)).toHaveClass('fa fa-star');
+              expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star');
             });
           });
         });
@@ -1711,7 +1711,7 @@ describe('Raty', function() {
               // then
               var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveClass('fa fa-star-o');
+              expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star-o');
               expect(self.children('input').val()).toEqual('0.24');
             });
 
@@ -1730,7 +1730,7 @@ describe('Raty', function() {
               // then
               var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveClass('fa fa-star-o');
+              expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star-o');
               expect(self.children('input').val()).toEqual('0.26');
             });
 
@@ -1749,7 +1749,7 @@ describe('Raty', function() {
               // then
               var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveClass('fa fa-star');
+              expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star');
               expect(self.children('input').val()).toEqual('0.6');
             });
 
@@ -1768,7 +1768,7 @@ describe('Raty', function() {
               // then
               var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveClass('fa fa-star');
+              expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star');
               expect(self.children('input').val()).toEqual('0.75');
             });
 
@@ -1787,7 +1787,7 @@ describe('Raty', function() {
               // then
               var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveClass('fa fa-star');
+              expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star');
             });
           });
 
@@ -1807,7 +1807,7 @@ describe('Raty', function() {
               // then
               var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveClass('fa fa-star-o');
+              expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star-o');
             });
 
             it ('receives half while greater then down limit', function() {
@@ -1825,7 +1825,7 @@ describe('Raty', function() {
               // then
               var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveClass('fa fa-star-half-o');
+              expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star-half-o');
             });
 
             it ('receives half while equal full limit, ignoring it', function() {
@@ -1843,7 +1843,7 @@ describe('Raty', function() {
               // then
               var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveClass('fa fa-star-half-o');
+              expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star-half-o');
             });
 
             it ('receives half while greater than down limit and less than up limit', function() {
@@ -1861,7 +1861,7 @@ describe('Raty', function() {
               // then
               var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveClass('fa fa-star-half-o');
+              expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star-half-o');
             });
 
             it ('receives full while equal or greater than up limit', function() {
@@ -1879,7 +1879,7 @@ describe('Raty', function() {
               // then
               var imgs = self.children('i');
 
-              expect(imgs.eq(0)).toHaveClass('fa fa-star');
+              expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star');
             });
           });
         });
@@ -1954,7 +1954,7 @@ describe('Raty', function() {
       expect(imgs.eq(2)).toHaveAttr('title', 'regular');
       expect(imgs.eq(3)).toHaveAttr('title', 'good');
       expect(imgs.eq(4)).toHaveAttr('title', 'gorgeous');
-      expect(imgs).toHaveClass('fa fa-star-o');
+      expect(imgs).toHaveClass('fa fa-fw fa-star-o');
       expect(score).toHaveAttr('type', 'hidden');
       expect(score).toHaveAttr('name', 'score');
       expect(score.val()).toEqual('');
@@ -1967,7 +1967,7 @@ describe('Raty', function() {
       expect(imgs.eq(2)).toHaveAttr('title', 'regular');
       expect(imgs.eq(3)).toHaveAttr('title', 'good');
       expect(imgs.eq(4)).toHaveAttr('title', 'gorgeous');
-      expect(imgs).toHaveClass('fa fa-star-o');
+      expect(imgs).toHaveClass('fa fa-fw fa-star-o');
       expect(score).toHaveAttr('type', 'hidden');
       expect(score).toHaveAttr('name', 'score');
       expect(score.val()).toEqual('');
@@ -2076,7 +2076,7 @@ describe('Raty', function() {
           self.raty('score', 5);
 
           // then
-          expect(self.children('i')).toHaveClass('fa fa-star');
+          expect(self.children('i')).toHaveClass('fa fa-fw fa-star');
         });
       });
 
@@ -2102,7 +2102,7 @@ describe('Raty', function() {
           self.raty('score', 5);
 
           // then
-          expect(self.children('i')).toHaveClass('fa fa-star-o');
+          expect(self.children('i')).toHaveClass('fa fa-fw fa-star-o');
         });
       });
     });
@@ -2217,7 +2217,7 @@ describe('Raty', function() {
           imgs.eq(0).mouseover();
 
           // then
-          expect(imgs).toHaveClass('fa fa-star-o');
+          expect(imgs).toHaveClass('fa fa-fw fa-star-o');
         });
 
         it ('avoids trigger click', function() {
@@ -2231,7 +2231,7 @@ describe('Raty', function() {
           imgs.eq(0).mouseover().click().mouseleave();
 
           // then
-          expect(imgs).toHaveClass('fa fa-star-o');
+          expect(imgs).toHaveClass('fa fa-fw fa-star-o');
           expect(self.children('input').val()).toEqual('');
         });
 
@@ -2346,7 +2346,7 @@ describe('Raty', function() {
           imgs.eq(0).mouseover();
 
           // then
-          expect(imgs.eq(0)).toHaveClass('fa fa-star');
+          expect(imgs.eq(0)).toHaveClass('fa fa-fw fa-star');
         });
 
         it ('triggers click', function() {
@@ -2360,7 +2360,7 @@ describe('Raty', function() {
           imgs.eq(0).mouseover().click().mouseleave();
 
           // then
-          expect(imgs).toHaveClass('fa fa-star');
+          expect(imgs).toHaveClass('fa fa-fw fa-star');
           expect(self.children('input')).toHaveValue('1');
         });
 
@@ -2397,8 +2397,8 @@ describe('Raty', function() {
             cancel.mouseover();
 
             // then
-            expect(cancel).toHaveClass('fa fa-check-square');
-            expect(imgs).toHaveClass('fa fa-star-o');
+            expect(cancel).toHaveClass('fa fa-fw fa-check-square');
+            expect(imgs).toHaveClass('fa fa-fw fa-star-o');
           });
 
           it ('rebinds the click', function() {
@@ -2412,7 +2412,7 @@ describe('Raty', function() {
             self.children('i:first').click().mouseout();
 
             // then
-            expect(imgs).toHaveClass('fa fa-star-o');
+            expect(imgs).toHaveClass('fa fa-fw fa-star-o');
           });
         });
       });
@@ -2428,7 +2428,7 @@ describe('Raty', function() {
           self.raty('cancel');
 
           // then
-          expect(self.children('i')).toHaveClass('fa fa-star');
+          expect(self.children('i')).toHaveClass('fa fa-fw fa-star');
         });
       });
 
@@ -2446,7 +2446,7 @@ describe('Raty', function() {
           self.raty('cancel');
 
           // then
-          expect(self.children('i')).toHaveClass('fa fa-star-o');
+          expect(self.children('i')).toHaveClass('fa fa-fw fa-star-o');
           expect(self.children('input').val()).toEqual('');
           expect(self.data('clicked')).toBeFalsy();
         });
@@ -2466,7 +2466,7 @@ describe('Raty', function() {
           self.raty('cancel', true);
 
           // then
-          expect(self.children('i')).toHaveClass('fa fa-star-o');
+          expect(self.children('i')).toHaveClass('fa fa-fw fa-star-o');
           expect(self.children('input').val()).toEqual('');
           expect(self.data('clicked')).toBeTruthy();
         });
@@ -2509,7 +2509,7 @@ describe('Raty', function() {
         self.raty('click', 1);
 
         // then
-        expect(self.children('i')).toHaveClass('fa fa-star');
+        expect(self.children('i')).toHaveClass('fa fa-fw fa-star');
         expect(self.data('clicked')).toBeTruthy();
       });
 
@@ -2552,7 +2552,7 @@ describe('Raty', function() {
           self.raty('click', 1);
 
           // then
-          expect(self.children('i')).toHaveClass('fa fa-star-o');
+          expect(self.children('i')).toHaveClass('fa fa-fw fa-star-o');
         });
       });
 

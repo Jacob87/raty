@@ -9,9 +9,10 @@ jQuery Raty FA is a plugin that generates a customizable star rating with Font A
 ## Version
 
 ```
-@version  0.1
-@since    2014-04-06
-@author	  Jacob Overgaard (http://jovergaard.me)
+@version        0.1.1
+@since          2014-04-10
+@author         [Jacob Overgaard](http://jovergaard.me)
+@contributor    [Dan Jessen](http://danjessen.dk)
 ```
 
 ## Required Files
@@ -26,8 +27,8 @@ jQuery Raty FA is a plugin that generates a customizable star rating with Font A
 ```js
 cancel      : false                                          // Creates a cancel button to cancel the rating.
 cancelHint  : 'Cancel this rating!'                          // The cancel's button hint.
-cancelOff   : 'fa fa-minus-square'                           // Icon used on active cancel.
-cancelOn    : 'fa fa-plus-square'                            // Icon used inactive cancel.
+cancelOff   : 'fa fa-fw fa-minus-square'                           // Icon used on active cancel.
+cancelOn    : 'fa fa-fw fa-plus-square'                            // Icon used inactive cancel.
 cancelPlace : 'left'                                         // Cancel's button position.
 click       : undefined                                      // Callback executed on rating click.
 half        : false                                          // Enables half star selection.
@@ -47,9 +48,9 @@ scoreName   : 'score'                                        // Name of the hidd
 single      : false                                          // Enables just a single star selection.
 size        : null                                           // The size (in pixels) of the icons that will be used.
 space       : true                                           // Puts space between the icons.
-starHalf    : 'fa fa-star-half-o'                            // The name of the half star image.
-starOff     : 'fa fa-star-o'                                 // Name of the star image off.
-starOn      : 'fa fa-star'                                   // Name of the star image on.
+starHalf    : 'fa fa-fw fa-star-half-o'                            // The name of the half star image.
+starOff     : 'fa fa-fw fa-star-o'                                 // Name of the star image off.
+starOn      : 'fa fa-fw fa-star'                                   // Name of the star image on.
 target      : undefined                                      // Element selector where the score will be displayed.
 targetFormat: '{score}'                                      // Template to interpolate the score in.
 targetKeep  : false                                          // If the last rating value will be keeped after mouseout.

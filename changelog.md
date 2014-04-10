@@ -1,14 +1,17 @@
 # jQuery Raty FA - A Star Rating Plugin with Font Awesome - https://github.com/Jacob87/raty-fa
 
-## 0.1
+## 0.1.1
 
 ### News
 
 + Fork of [jQuery Raty](https://github.com/wbotelhos/raty)
++ Pull request add from user [vaff](https://github.com/vaff/) with [jQuery Raty FA](https://github.com/vaff/raty-fa/)
 
 ### Changes
 
-+ Adjusted scope of entire plugin to use <i> instead of <img> and Font Awesome instead of png assets;
++ Adjusted the [Font Awesome](http://fontawesome.io/) icons to use .fa-fw class to give all icons a fixed with. 
++ Updated test cases to reflect above changes.
++ Updated test cases to use proper [Font Awesome](http://fontawesome.io/) clases.
 
 ## known Bugs
 
