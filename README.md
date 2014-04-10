@@ -9,9 +9,10 @@ jQuery Raty FA is a plugin that generates a customizable star rating with Font A
 ## Version
 
 ```
-@version  0.1
-@since    2014-04-06
-@author	  Jacob Overgaard (http://jovergaard.me)
+@version        0.1.1
+@since          2014-04-10
+@author         [Jacob Overgaard](http://jovergaard.me)
+@contributor    [Dan Jessen](http://danjessen.dk)
 ```
 
 ## Required Files
