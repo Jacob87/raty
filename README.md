@@ -10,10 +10,10 @@ jQuery Raty FA is a plugin that generates a customizable star rating with Font A
 
 What | Who
 ---------- | -------------
-version        | 0.1.1
-since          | 2014-04-10
-author         | [Jacob Overgaard](http://jovergaard.me)
-contributors    | [Dan Jessen](http://danjessen.dk)
+version | 0.1.1
+since | 2014-04-10
+author | [Jacob Overgaard](http://jovergaard.me)
+contributors | [Dan Jessen](http://danjessen.dk)
 
 ## Required Files
 
@@ -61,26 +61,19 @@ width       : false                                          // Manually adjust 
 
 ## Usage
 
+### CSS
 ```css
 <link href="//netdna.bootstrapcdn.com/font-awesome/latest/css/font-awesome.css" rel="stylesheet">
 ```
 
+### HTML
 ```html
 <div id="star"></div>
 ```
 
+### JavaScript
 ```js
 $('#star').raty();
-```
-
-```html
-<div class="star"></div>
-<div class="star"></div>
-<div class="star"></div>
-```
-
-```js
-$('.star').raty();
 ```
 
 ## Functions
