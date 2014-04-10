@@ -189,10 +189,10 @@ describe('Raty', function() {
         var self = $('#element');
 
         // when
-        self.raty({ starOff: 'fa-beer' });
+        self.raty({ starOff: 'fa fa-fw fa-beer' });
 
         // then
-        expect(self.children('i')).toHaveClass('fa-beer');
+        expect(self.children('i')).toHaveClass('fa fa-fw fa-beer');
       });
     });
 
