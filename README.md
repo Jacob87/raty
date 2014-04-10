@@ -85,7 +85,7 @@ $('#star').raty('score', number);          // Set the score.
 
 $('#star').raty('click', number);          // Click on some star.
 
-$('.star').raty('readOnly', boolean);      // Change the read-only state.
+$('#star').raty('readOnly', boolean);      // Change the read-only state.
 
 $('#star').raty('cancel', boolean);        // Cancel the rating. The last param force the click callback.
 
