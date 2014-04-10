@@ -54,7 +54,7 @@
 
     $('#starHalf').raty({
       half     : true,
-      starHalf : 'fa fa-star-half',
+      starHalf : 'fa fa-fw fa-star-half',
     });
 
     $('#click').raty({
@@ -66,8 +66,8 @@
     $('#hints').raty({ hints: ['a', null, '', undefined, '*_*']});
 
     $('#star-off-and-star-on').raty({
-      starOff : 'fa fa-bell-o',
-      starOn  : 'fa fa-bell'
+      starOff : 'fa fa-fw fa-bell-o',
+      starOn  : 'fa fa-fw fa-bell'
     });
 
     $('#cancel').raty({ cancel: true });
@@ -84,18 +84,18 @@
 
     $('#cancel-off-and-cancel-on').raty({
       cancel    : true,
-      cancelOff : 'fa fa-minus-square-o',
-      cancelOn  : 'fa fa-minus-square',
+      cancelOff : 'fa fa-fw fa-minus-square-o',
+      cancelOn  : 'fa fa-fw fa-minus-square',
     });
 
     $('#iconRange').raty({
       starOff   : 'lib/images/star-off.png',
       iconRange : [
-        { range: 1, on: 'fa fa-cloud', off: 'fa fa-circle-o' },
-        { range: 2, on: 'fa fa-cloud-download', off: 'fa fa-circle-o' },
-        { range: 3, on: 'fa fa-cloud-upload', off: 'fa fa-circle-o' },
-        { range: 4, on: 'fa fa-circle', off: 'fa fa-circle-o' },
-        { range: 5, on: 'fa fa-cogs', off: 'fa fa-circle-o' }
+        { range: 1, on: 'fa fa-fw fa-cloud', off: 'fa fa-fw fa-circle-o' },
+        { range: 2, on: 'fa fa-fw fa-cloud-download', off: 'fa fa-fw fa-circle-o' },
+        { range: 3, on: 'fa fa-fw fa-cloud-upload', off: 'fa fa-fw fa-circle-o' },
+        { range: 4, on: 'fa fa-fw fa-circle', off: 'fa fa-fw fa-circle-o' },
+        { range: 5, on: 'fa fa-fw fa-cogs', off: 'fa fa-fw fa-circle-o' }
       ]
     });
 
