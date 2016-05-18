@@ -26,7 +26,7 @@ contributors | [Dan Jessen](http://danjessen.dk)
 ## Installation
 
 ### GitHub
-Download the lib/raty-fa.js file
+Download the lib/jquery.raty-fa.js file
 
 ### Bower
 
