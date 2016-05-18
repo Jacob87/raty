@@ -19,11 +19,23 @@ contributors | [Dan Jessen](http://danjessen.dk)
 ## Required Files
 
 + jquery.js
-
 + jquery.raty.js
 + Library of Font Awesome
 
-## Options
+
+## Installation
+
+### GitHub
+Download the lib/raty-fa.js file
+
+### Bower
+
+```bash
+bower install ratyfa
+```
+
+## Usage
+### Options
 
 ```js
 cancel      : false                                          // Creates a cancel button to cancel the rating.
@@ -59,8 +71,6 @@ targetText  : ''                                             // Default text set
 targetType  : 'hint'                                         // Option to choose if target will receive hint o 'score' type.
 width       : false                                          // Manually adjust the width for the container.
 ```
-
-## Usage
 
 ### CSS
 ```css
