@@ -15,7 +15,7 @@ ratings:
   paths:
   - "/libs/**.js"
 exclude_paths:
-- spec/
-- demo/
-- **.md
-- **.html
+- "spec/"
+- "demo/"
+- "**.md"
+- "**.html"
