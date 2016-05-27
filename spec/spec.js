@@ -2024,19 +2024,6 @@ describe('Raty', function() {
         });
       });
 
-      context('with score zero', function() {
-        it ('gets null to emulate cancel', function() {
-          // given
-          var self = $('#element').raty({ score: 0 });
-
-          // when
-          var score = self.raty('score');
-
-          // then
-          expect(score).toEqual(null);
-        });
-      });
-
       context('with score greater than :numberMax', function() {
         it ('gets the max', function() {
           // given
