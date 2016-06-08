@@ -13,9 +13,10 @@ engines:
     enabled: true
 ratings:
   paths:
-  - "/libs/**.js"
+  - "**.js"
 exclude_paths:
 - "spec/"
 - "demo/"
 - "**.md"
 - "**.html"
+- "bower.json"
